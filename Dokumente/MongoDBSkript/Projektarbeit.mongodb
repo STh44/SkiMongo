@@ -1,0 +1,207 @@
+use admin
+db.auth("admin", "admin")
+
+use Ski
+db.dropDatabase()
+
+use Ski
+
+// Collection erstellen und Validierung einfügen
+db.createCollection( "Orders", { validator: { 
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["Kundenname", "Email", "Telefon", "Priorität", "Dienstleistung", "Status", "Erfassungsdatum", "Abholdatum"],
+        "properties": {
+            "Kundenname": {
+                "bsonType": "string",
+                "minLength": 1
+            },
+            "Email": {
+                "bsonType": "string",
+                "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+            },
+            "Telefon": {
+                "bsonType": "string",
+                "pattern": "^[0-9]*$"
+            },
+            "Priorität": {
+                "bsonType": "string",
+                "enum": ["Tief", "Standart", "Express"]
+            },
+            "Dienstleistung": {
+                "bsonType": "string",
+                "enum": ["Kleiner Service", "Grosser Service", "Rennski-Service", "Bindung montieren und einstellen", "Fell zuschneiden", "Heisswachsen"]
+            },
+            "Status": {
+                "bsonType": "string",
+                "enum": ["Offen", "In Bearbeitung", "Abgeschlossen"]
+            },
+            "Erfassungsdatum": {
+                "bsonType": "date"
+            },
+            "Abholdatum": {
+                "bsonType": "date"
+            }
+        }
+    }
+} } )
+
+
+
+//Daten einfügen
+db.Orders.insertMany([
+{
+    "Kundenname": "John Doe",
+    "Email": "johndoe@example.com",
+    "Telefon": "1234567890",
+    "Priorität": "Express",
+    "Dienstleistung": "Rennski-Service",
+    "Status": "In Bearbeitung",
+    "Erfassungsdatum": new Date("2022-01-01"),
+    "Abholdatum": new Date("2022-01-08")
+},
+{
+    "Kundenname": "Jane Smith",
+    "Email": "janesmith@example.com",
+    "Telefon": "0987654321",
+    "Priorität": "Tief",
+    "Dienstleistung": "Kleiner Service",
+    "Status": "Offen",
+    "Erfassungsdatum": new Date("2022-02-15"),
+    "Abholdatum": new Date("2022-02-22")
+},{
+    "Kundenname": "Mike Brown",
+    "Email": "mikebrown@example.com",
+    "Telefon": "0877654321",
+    "Priorität": "Standart",
+    "Dienstleistung": "Bindung montieren und einstellen",
+    "Status": "Abgeschlossen",
+    "Erfassungsdatum": new Date("2022-03-01"),
+    "Abholdatum": new Date("2022-03-08")
+},{
+    "Kundenname": "Emily Davis",
+    "Email": "emilydavis@example.com",
+    "Telefon": "9824567890",
+    "Priorität": "Express",
+    "Dienstleistung": "Heisswachsen",
+    "Status": "In Bearbeitung",
+    "Erfassungsdatum": new Date("2022-04-01"),
+    "Abholdatum": new Date("2022-04-08")
+},{
+    "Kundenname": "James Johnson",
+    "Email": "jamesjohnson@example.com",
+    "Telefon": "0787686789",
+    "Priorität": "Standart",
+    "Dienstleistung": "Fell zuschneiden",
+    "Status": "Offen",
+    "Erfassungsdatum": new Date("2022-05-01"),
+    "Abholdatum": new Date("2022-05-08")
+},{
+    "Kundenname": "David Miller",
+    "Email": "davidmiller@example.com",
+    "Telefon": "0877654321",
+    "Priorität": "Tief",
+    "Dienstleistung": "Grosser Service",
+    "Status": "Abgeschlossen",
+    "Erfassungsdatum": new Date("2022-06-01"),
+    "Abholdatum": new Date("2022-06-08")
+},{
+    "Kundenname": "William Smith",
+    "Email": "williamsmith@example.com",
+    "Telefon": "0987654321",
+    "Priorität": "Express",
+    "Dienstleistung": "Rennski-Service",
+    "Status": "In Bearbeitung",
+    "Erfassungsdatum": new Date("2022-07-01"),
+    "Abholdatum": new Date("2022-07-08")
+},{
+    "Kundenname": "Robert Brown",
+    "Email": "robertbrown@example.com",
+    "Telefon": "0987654321",
+    "Priorität": "Tief",
+    "Dienstleistung": "Kleiner Service",
+    "Status": "Offen",
+    "Erfassungsdatum": new Date("2022-08-01"),
+    "Abholdatum": new Date("2022-08-08")
+}])
+
+//Index erstellen
+db.Orders.createIndex ({"Status": 1,})
+db.Orders.createIndex ({"Priorität": 1,})
+
+//Mitarbeiter Collection erstellen und Mitarbeiter einfügen
+db.Mitarbeiter.insertMany([
+{   "name": "Simon",
+    "password": "1234"
+},{  
+    "name": "Urs",
+    "password" : "1234"
+}])
+
+//User erstellen und Rechte vergeben
+use admin
+db.createUser({user: "admin", pwd: "admin", roles: ["userAdminAnyDatabase", "readWriteAnyDatabase"]})
+use urs 
+db.createUser({user: "urs", pwd: "1234", roles: [{role: "readWrite", db: "Ski"}]})
+use peter 
+db.createUser({user: "peter", pwd: "1234", roles: [{role: "read", db: "Ski"}]})
+
+
+
+//Test bereich
+
+db.getUsers()
+
+db.system.users.find()
+
+
+//Admin erstellen, Rechte vergeben und einloggen   
+use admin
+
+db.createUser({user: "admin", pwd: "admin", roles: ["userAdminAnyDatabase", "readWriteAnyDatabase"]})
+
+db.grantRolesToUser("admin", [{ role: "dbOwner", db: "Ski"}])
+
+db.auth("admin", "admin")
+
+//Ausloggen und mit anderem User einloggen
+db.logout()
+use urs
+db.auth("urs", "1234")
+
+db.logout()
+use peter
+db.auth("peter", "1234")
+
+db.dropUser("peter")
+
+db.dropUser("admin")
+
+mongosh --host "localhost:27017" --username "admin" --password "admin" --authenticationDatabase admin
+
+db.Orders.find().pretty()
+
+use Ski
+db.Orders.insertOne(
+{
+    "Kundenname": "Test2 Test",
+    "Email": "johndoe@example.com",
+    "Telefon": "1234567890",
+    "Priorität": "Express",
+    "Dienstleistung": "Rennski-Service",
+    "Status": "In Bearbeitung",
+    "Erfassungsdatum": new Date  ("2023-01-20T23:15:14.882Z"),
+    "Abholdatum": new Date ("2023-01-20T23:15:14.882Z")
+}
+)
+
+{
+    "Kundenname": "Test3 Test",
+    "Email": "johndoe@example.com",
+    "Telefon": "1234567890",
+    "Priorität": "Express",
+    "Dienstleistung": "Rennski-Service",
+    "Status": "In Bearbeitung",
+    "Erfassungsdatum": "2023-01-20T23:15:14.882Z",
+    "Abholdatum": "2023-01-20T23:15:14.882Z"
+}

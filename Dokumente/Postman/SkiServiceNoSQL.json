@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "1409487e-8bdd-4c72-b72e-5d8c290ee2da",
+		"name": "SkiServiceNoSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22701779"
+	},
+	"item": [
+		{
+			"name": "Login Urs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Urs\",\r\n  \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7242/Mitarbeiter",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Mitarbeiter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Simon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Simon\",\r\n  \"password\": \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7242/Mitarbeiter",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Mitarbeiter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Mitarbeiter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJTaW1vbiIsIm5iZiI6MTY3NDkyMzg5MiwiZXhwIjoxNjc2NjUxODkyLCJpYXQiOjE2NzQ5MjM4OTJ9.h8yI5A7H46wS4B_lSumuexmwT_ViaFIV6S080JxCjOaqjxbgNe5YMg2lBsjdGweYt7MEHOBHj5PH_eIj7wAn2A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Mitarbeiter",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Mitarbeiter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deblock Mitarbeiter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJTaW1vbiIsIm5iZiI6MTY3NDkyODE4MiwiZXhwIjoxNjc2NjU2MTgyLCJpYXQiOjE2NzQ5MjgxODJ9.3YVH2P3zjGfr2lx8xkVT9GiLz9Lwox9-AZGYDQlwsAX7StQdsM3bhhiYxuJ8lwJOXtl5AgLipsTOm4dPKYUlnA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Mitarbeiter/63d53a7094ba69a19d4e90e9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Mitarbeiter",
+						"63d53a7094ba69a19d4e90e9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Orders/All",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders",
+						"All"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Orders by Priority",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Orders/byPriority",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders",
+						"byPriority"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Orders/63d53a6e94ba69a19d4e90e0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders",
+						"63d53a6e94ba69a19d4e90e0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJTaW1vbiIsIm5iZiI6MTY3NDkyMzg5MiwiZXhwIjoxNjc2NjUxODkyLCJpYXQiOjE2NzQ5MjM4OTJ9.h8yI5A7H46wS4B_lSumuexmwT_ViaFIV6S080JxCjOaqjxbgNe5YMg2lBsjdGweYt7MEHOBHj5PH_eIj7wAn2A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"63d53a6e94ba69a19d4e90e0\",\r\n    \"kundenname\": \"John Doe1\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"telefon\": \"1234567890\",\r\n    \"priorität\": \"Express\",\r\n    \"dienstleistung\": \"Rennski-Service\",\r\n    \"status\": \"In Bearbeitung\",\r\n    \"erfassungsdatum\": \"2022-01-01T00:00:00Z\",\r\n    \"abholdatum\": \"2022-01-08T00:00:00Z\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7242/Orders/63d53a6e94ba69a19d4e90e0",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders",
+						"63d53a6e94ba69a19d4e90e0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7242/Orders/63d546eae3280123c24636a5",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders",
+						"63d546eae3280123c24636a5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"kundenname\": \"Test5 Test\",\r\n    \"email\": \"robertbrown@example.com\",\r\n    \"telefon\": \"0987654321\",\r\n    \"priorität\": \"Tief\",\r\n    \"dienstleistung\": \"Kleiner Service\",\r\n    \"status\": \"Offen\",\r\n    \"erfassungsdatum\": \"2022-08-01T00:00:00Z\",\r\n    \"abholdatum\": \"2022-08-08T00:00:00Z\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7242/Orders",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7242",
+					"path": [
+						"Orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
